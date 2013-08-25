@@ -5,7 +5,7 @@
 Add this line to your application's Gemfile:
 
     gem 'capistrano', version: '~> 3.0.0'
-    gem 'capistrano-rbenv', github: "capistrano/rbenv"
+    gem 'capistrano-maintenance', github: "capistrano/capistrano-maintenance"
 
 
 And then execute:
