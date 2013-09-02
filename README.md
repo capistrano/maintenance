@@ -4,7 +4,7 @@
 
 Add this line to your application's Gemfile:
 
-    gem 'capistrano', version: '~> 3.0.0'
+    gem 'capistrano', github: 'capistrano/capistrano', branch: 'v3'
     gem 'capistrano-maintenance', github: "capistrano/capistrano-maintenance"
 
 
