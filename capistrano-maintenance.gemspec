@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'capistrano/maintenance/version'
+require 'capistrano-maintenance/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "capistrano-maintenance"
-  spec.version       = Capistrano::Maintenance::VERSION
+  spec.version       = CapistranoMaintenance::VERSION
   spec.authors       = ["Kir Shatrov"]
   spec.email         = ["shatrov@me.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
-  spec.homepage      = ""
+  spec.description   = %q{Maintenance Support for Capistrano 3}
+  spec.summary       = %q{Enable and disabled tasks to show when your project is on maintenance}
+  spec.homepage      = "https://github.com/capistrano/capistrano-maintenance"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
