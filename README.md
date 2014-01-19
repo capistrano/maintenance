@@ -51,9 +51,7 @@ By default, the maintenance page will just say the site is down for
 "maintenance", and will be back "shortly", but you can customize the
 page by specifying the REASON and UNTIL environment variables:
 
-  $ cap maintenance:enable \\
-        REASON="hardware upgrade" \\
-        UNTIL="12pm Central Time"
+    cap maintenance:enable REASON="hardware upgrade" UNTIL="12pm Central Time"
 
 You can use a different template for the maintenance page by setting the
 `:maintenance_template_path` variable in your deploy.rb file. The template file
