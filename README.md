@@ -18,7 +18,7 @@ Or install it yourself as:
 
 ## Usage
 
-Before using maintenance tasks, you need no configure webserver.
+Before using maintenance tasks, you need to configure webserver.
 Here is an example config for nginx:
 
 ```
