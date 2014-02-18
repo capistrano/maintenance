@@ -1,5 +1,5 @@
 namespace :maintenance do
-
+  desc "Turn on maintenance mode"
   task :enable do
     on roles(:web) do
       require 'erb'
@@ -15,6 +15,7 @@ namespace :maintenance do
     end
   end
 
+  desc "Turn off maintenance mode"
   task :disable do
     on roles(:web) do
       run "rm -f #{shared_path}/system/#{maintenance_basename}.html"
