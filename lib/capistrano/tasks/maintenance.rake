@@ -3,7 +3,6 @@ namespace :maintenance do
   task :enable do
     on roles(:web) do
       require 'erb'
-      on_rollback { run "rm -f #{shared_path}/system/#{maintenance_basename}.html" }
 
       reason = ENV['REASON']
       deadline = ENV['UNTIL']
