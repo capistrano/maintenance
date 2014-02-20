@@ -1,23 +1,23 @@
 namespace :maintenance do
   desc "Turn on maintenance mode"
   task :enable do
-    on roles(:web) do
-      require 'erb'
+    require 'erb'
 
+    on roles(:web) do
       reason = ENV['REASON']
       deadline = ENV['UNTIL']
 
-      template = File.read(maintenance_template_path)
-      result = ERB.new(template).result(binding)
+      template = ERB.new(File.read(fetch(:maintenance_template_path)))
+      stream = StringIO.new(template.result(binding))
 
-      put result, "#{shared_path}/system/#{maintenance_basename}.html", :mode => 0644
+      upload! stream, "#{shared_path}/system/#{fetch(:maintenance_basename, 'maintenance')}.html"
     end
   end
 
   desc "Turn off maintenance mode"
   task :disable do
     on roles(:web) do
-      run "rm -f #{shared_path}/system/#{maintenance_basename}.html"
+      execute :rm, "-f", "#{shared_path}/system/#{fetch(:maintenance_basename, 'maintenance')}.html"
     end
   end
 end
