@@ -7,17 +7,20 @@ namespace :maintenance do
       reason = ENV['REASON']
       deadline = ENV['UNTIL']
 
-      template = File.read(maintenance_template_path)
-      result = ERB.new(template).result(binding)
+      default_template = File.join(File.expand_path('../../templates', __FILE__), 'maintenance.html.erb')
+      template = fetch(:maintenance_template_path, default_template)
+      result = ERB.new(File.read(template)).result(binding)
 
-      put result, "#{shared_path}/system/#{maintenance_basename}.html", :mode => 0644
+      rendered_path = "#{shared_path}/public/system/#{fetch(:maintenance_basename, 'maintenance')}.html"
+      upload!(StringIO.new(result), rendered_path)
+      execute "chmod 644 #{rendered_path}"
     end
   end
 
   desc "Turn off maintenance mode"
   task :disable do
     on roles(:web) do
-      run "rm -f #{shared_path}/system/#{maintenance_basename}.html"
+      execute "rm -f #{shared_path}/public/system/#{fetch(:maintenance_basename, 'maintenance')}.html"
     end
   end
 end
