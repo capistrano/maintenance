@@ -22,6 +22,8 @@ Before using maintenance tasks, you need to configure webserver.
 Here is an example config for nginx:
 
 ```
+error_page 503 @503;
+
 if (-f $document_root/system/maintenance.html) {
   return 503;
 }
