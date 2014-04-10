@@ -12,19 +12,23 @@ And then execute:
 
     $ bundle
 
-Or install it yourself as:
+Or install it yourself:
 
     $ gem install capistrano-maintenance
 
 ## Usage
 
-Before using maintenance tasks, you need to configure webserver.
-Here is an example config for nginx:
+Before using the maintenance tasks, you need to configure your webserver. How you do this depends on how your server is configured, but the following examples should help you on your way.
+
+Application servers such as [Passenger](https://www.phusionpassenger.com) and [unicorn](http://unicorn.bogomips.org) requires you to set your public web directory to `current/public`. Both examples below are compatible with this setup.
+
+Here is an example config for **nginx**. Note that this is just a part of the complete config, and will probably require modifications.
 
 ```
 error_page 503 @503;
 
-if (-f $document_root/system/maintenance.html) {
+# Return a 503 error if the maintenance page exists.
+if (-f /var/www/domain.com/shared/public/system/maintenance.html) {
   return 503;
 }
 
@@ -34,11 +38,31 @@ location @503 {
     break;
   }
 
+  # Set root to the shared directory.
+  root /var/www/domain.com/shared/public;
   rewrite ^(.*)$ /system/maintenance.html break;
 }
 ```
 
-Now you can require the gem in `Capfile`:
+And here is an example config for **Apache**. This will also need to be modified.
+
+```
+# Create an alias to the maintenance page used as error document.
+Alias "/error" "/var/www/domain.com/shared/public/system/"
+ErrorDocument 503 /error/maintenance.html
+
+# Return 503 error if the maintenance page exists.
+RewriteCond /var/www/domain.com/shared/public/system/maintenance.html -f
+RewriteRule !^/error/maintenance.html - [L,R=503]
+
+# Redirect all non-static requests to unicorn (or similar).
+# Will not redirect any requests if the maintenance page exists.
+RewriteCond /var/www/domain.com/shared/public/system/maintenance.html !-f
+RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-f
+RewriteRule ^/(.*)$ balancer://unicornserver%{REQUEST_URI} [P,QSA,L]
+```
+
+You can now require the gem in your `Capfile`:
 
     require 'capistrano/maintenance'
 
