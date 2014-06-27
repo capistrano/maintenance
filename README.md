@@ -5,7 +5,7 @@
 Add this line to your application's Gemfile:
 
     gem 'capistrano', '~> 3.0'
-    gem 'capistrano-maintenance', github: "capistrano/capistrano-maintenance"
+    gem 'capistrano-maintenance', github: "capistrano/maintenance", require: false 
 
 
 And then execute:
