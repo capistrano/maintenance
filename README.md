@@ -44,22 +44,15 @@ location @503 {
 }
 ```
 
-And here is an example config for **Apache**. This will also need to be modified.
+And here is an example config for **Apache**:
 
 ```
-# Create an alias to the maintenance page used as error document.
-Alias "/error" "/var/www/domain.com/shared/public/system/"
-ErrorDocument 503 /error/maintenance.html
-
-# Return 503 error if the maintenance page exists.
-RewriteCond /var/www/domain.com/shared/public/system/maintenance.html -f
-RewriteRule !^/error/maintenance.html - [L,R=503]
-
-# Redirect all non-static requests to unicorn (or similar).
-# Will not redirect any requests if the maintenance page exists.
-RewriteCond /var/www/domain.com/shared/public/system/maintenance.html !-f
-RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_FILENAME} !-f
-RewriteRule ^/(.*)$ balancer://unicornserver%{REQUEST_URI} [P,QSA,L]
+ErrorDocument 503 /system/maintenance.html
+RewriteEngine On
+RewriteCond %{REQUEST_URI} !.(css|gif|jpg|png)$
+RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
+RewriteCond %{SCRIPT_FILENAME} !maintenance.html
+RewriteRule ^.*$-[redirect=503,last]
 ```
 
 You can now require the gem in your `Capfile`:
