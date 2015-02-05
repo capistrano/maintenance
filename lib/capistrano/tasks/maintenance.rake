@@ -11,7 +11,7 @@ namespace :maintenance do
       template = fetch(:maintenance_template_path, default_template)
       result = ERB.new(File.read(template)).result(binding)
 
-      rendered_path = "#{shared_path}/public/system/"
+      rendered_path = "#{fetch(:maintenance_dirname, "#{shared_path}/public/system")}/"
       rendered_name = "#{fetch(:maintenance_basename, 'maintenance')}.html"
 
       if test "[ ! -d #{rendered_path} ]"
@@ -27,7 +27,7 @@ namespace :maintenance do
   desc "Turn off maintenance mode"
   task :disable do
     on roles(:web) do
-      execute "rm -f #{shared_path}/public/system/#{fetch(:maintenance_basename, 'maintenance')}.html"
+      execute "rm -f #{fetch(:maintenance_dirname, "#{shared_path}/public/system/")}/#{fetch(:maintenance_basename, 'maintenance')}.html"
     end
   end
 end
