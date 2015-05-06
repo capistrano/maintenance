@@ -5,7 +5,7 @@
 Add this line to your application's Gemfile:
 
     gem 'capistrano', '~> 3.0'
-    gem 'capistrano-maintenance', github: "capistrano/maintenance", require: false 
+    gem 'capistrano-maintenance', '~> 1.0'
 
 
 And then execute:
@@ -100,3 +100,9 @@ web servers are configured correctly) will make your application web-accessible 
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
+
+## Authors
+
+The original `capistrano-maintenance` gem was created by [Thomas von Deyen](https://github.com/tvdeyen) and the implementation for Capistrano 3 in this repo was written by [Kir Shatrov](https://github.com/kirs).
+
+As a Capistrano team, we thank Thomas for collaboration and providing the push access to the `capistrano-maintenance` gem.
