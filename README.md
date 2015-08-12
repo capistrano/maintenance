@@ -52,7 +52,7 @@ RewriteEngine On
 RewriteCond %{REQUEST_URI} !.(css|gif|jpg|png)$
 RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
 RewriteCond %{SCRIPT_FILENAME} !maintenance.html
-RewriteRule ^.*$-[redirect=503,last]
+RewriteRule ^.*$ - [redirect=503,last]
 ```
 
 You can now require the gem in your `Capfile`:
