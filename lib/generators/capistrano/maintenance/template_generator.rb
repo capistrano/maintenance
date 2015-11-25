@@ -3,7 +3,7 @@ module Capistrano
     module Generators
       class TemplateGenerator < Rails::Generators::Base
 
-        desc "Create local maintenance.html.erb (database.yml on the server) template file for customization"
+        desc "Create a local maintenance.html.erb template file for customization"
         source_root File.expand_path('../../../../capistrano/templates', __FILE__)
         argument :templates_path, type: :string,
           default: "config/deploy/templates",
