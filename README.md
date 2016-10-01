@@ -80,8 +80,42 @@ page by specifying the REASON and UNTIL environment variables:
     cap maintenance:enable REASON="hardware upgrade" UNTIL="12pm Central Time"
 
 You can use a different template for the maintenance page by setting the
-`:maintenance_template_path` variable in your deploy.rb file. The template file
-should either be a plaintext or an erb file.
+`:maintenance_template_path` variable in your deploy.rb file with an absolute path. 
+
+```
+set :maintenance_template_path, File.expand_path("../../app/path/to/maintenance.erb.html", __FILE__)
+```
+
+The template file should either be a plaintext or an erb file. For example:
+
+```
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Maintenance</title>
+    <style type="text/css">
+    body {
+        width: 400px;
+        margin: 100px auto;
+        font: 300 120% "OpenSans", "Helvetica Neue", "Helvetica", Arial, Verdana, sans-serif;
+    }
+
+    h1 {
+        font-weight: 300;
+    }
+    </style>
+</head>
+<body>
+    <h1>Maintenance</h1>
+
+    <p>The system is down for <%= reason ? reason : "maintenance" %><br>
+           as of <%= Time.now.strftime("%F %H:%M %Z") %>.</p>
+
+    <p>It'll be back <%= deadline ? deadline : "shortly" %>.</p>
+</body>
+</html>
+
+```
 
 Further customization will require that you write your own task.
 
