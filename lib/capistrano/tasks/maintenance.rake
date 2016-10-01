@@ -1,3 +1,5 @@
+include ActionView::Helpers::UrlHelper
+
 namespace :maintenance do
   desc "Turn on maintenance mode"
   task :enable do
