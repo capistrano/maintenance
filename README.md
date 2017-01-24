@@ -125,6 +125,14 @@ The template file should either be a plaintext or an erb file. For example:
 </html>
 ```
 
+By default, the maintenance page will be uploaded to all servers with the `web` role,
+but if your application has different needs, you can customize this using the
+`maintenance_roles` variable:
+
+```
+set :maintenance_roles, -> { roles([:web, :other_role]) }
+```
+
 Further customization will require that you write your own task.
 
 ### Disable task

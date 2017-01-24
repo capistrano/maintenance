@@ -1,7 +1,7 @@
 namespace :maintenance do
   desc "Turn on maintenance mode"
   task :enable do
-    on roles(:web) do
+    on fetch(:maintenance_roles, roles(:web)) do
       require 'erb'
 
       reason = ENV['REASON']
@@ -26,7 +26,7 @@ namespace :maintenance do
 
   desc "Turn off maintenance mode"
   task :disable do
-    on roles(:web) do
+    on fetch(:maintenance_roles, roles(:web)) do
       execute "rm -f #{shared_path}/public/system/#{fetch(:maintenance_basename, 'maintenance')}.html"
     end
   end
