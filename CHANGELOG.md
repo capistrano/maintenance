@@ -7,6 +7,7 @@ Reverse chronological order:
 https://github.com/capistrano/capistrano-maintenance/compare/v1.1.0...HEAD
 
 * Your contribution here!
+* [#40](https://github.com/capistrano/maintenance/pull/40): Allow directory of maintenance page to be customized - [@tjwallace](https://github.com/tjwallace).
 
 ## `1.1.0` (2017-01-26)
 
