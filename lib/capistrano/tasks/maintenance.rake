@@ -4,6 +4,13 @@ namespace :maintenance do
     on fetch(:maintenance_roles) do
       require 'erb'
 
+      def inline_image_src(image)
+        file = File.open(image, "rb").read
+        b64 = Base64.encode64(file)
+        extension = File.extname(image)[1..-1]
+        "data:image/#{extension};base64,#{b64}"
+      end
+
       reason = ENV['REASON']
       deadline = ENV['UNTIL']
 
