@@ -89,10 +89,10 @@ cap maintenance:enable REASON="hardware upgrade" UNTIL="12pm Central Time"
 ```
 
 You can use a different template for the maintenance page by setting the
-`:maintenance_template_path` variable in your deploy.rb file with an absolute path. 
+`:maintenance_template_path` variable in your deploy.rb file with an absolute path.
 
 ```
-set :maintenance_template_path, File.expand_path("../../app/path/to/maintenance.erb.html", __FILE__)
+set :maintenance_template_path, File.expand_path("../../app/path/to/maintenance.html.erb", __FILE__)
 ```
 
 The template file should either be a plaintext or an erb file. For example:
@@ -123,6 +123,14 @@ The template file should either be a plaintext or an erb file. For example:
     <p>It'll be back <%= deadline ? deadline : "shortly" %>.</p>
 </body>
 </html>
+```
+
+You can customize which folder the maintenance page template is rendered to by
+setting the `:maintenance_dirname` variable. By default it renders to
+`"#{shared_path}/public/system"`.
+
+```
+set :maintenance_dirname, -> { "#{current_path}/dist" }
 ```
 
 By default, the maintenance page will be uploaded to all servers with the `web` role,
