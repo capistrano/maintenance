@@ -92,7 +92,7 @@ You can use a different template for the maintenance page by setting the
 `:maintenance_template_path` variable in your deploy.rb file with an absolute path.
 
 ```
-set :maintenance_template_path, File.expand_path("../../app/path/to/maintenance.erb.html", __FILE__)
+set :maintenance_template_path, File.expand_path("../../app/path/to/maintenance.html.erb", __FILE__)
 ```
 
 The template file should either be a plaintext or an erb file. For example:
