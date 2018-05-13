@@ -1,33 +1,42 @@
 namespace :maintenance do
   desc "Turn on maintenance mode"
   task :enable do
-    on roles(:web) do
+    on fetch(:maintenance_roles) do
       require 'erb'
 
       reason = ENV['REASON']
       deadline = ENV['UNTIL']
 
-      default_template = File.join(File.expand_path('../../templates', __FILE__), 'maintenance.html.erb')
-      template = fetch(:maintenance_template_path, default_template)
-      result = ERB.new(File.read(template)).result(binding)
+      result = ERB.new(File.read(fetch(:maintenance_template_path))).result(binding)
 
-      rendered_path = "#{shared_path}/public/system/"
-      rendered_name = "#{fetch(:maintenance_basename, 'maintenance')}.html"
+      rendered_path = fetch(:maintenance_dirname)
+      rendered_name = "#{fetch(:maintenance_basename)}.html"
 
       if test "[ ! -d #{rendered_path} ]"
         info 'Creating missing directories.'
         execute :mkdir, '-pv', rendered_path
       end
 
-      upload!(StringIO.new(result), rendered_path + rendered_name)
-      execute "chmod 644 #{rendered_path + rendered_name}"
+      rendered_fullpath = "#{rendered_path}/#{rendered_name}"
+      upload! StringIO.new(result), rendered_fullpath
+      execute "chmod 644 #{rendered_fullpath}"
     end
   end
 
   desc "Turn off maintenance mode"
   task :disable do
-    on roles(:web) do
-      execute "rm -f #{shared_path}/public/system/#{fetch(:maintenance_basename, 'maintenance')}.html"
+    on fetch(:maintenance_roles) do
+      execute "rm -f #{fetch(:maintenance_dirname)}/#{fetch(:maintenance_basename)}.html"
     end
+  end
+end
+
+namespace :load do
+  task :defaults do
+    set_if_empty :maintenance_roles, -> { roles(:web) }
+    set_if_empty :maintenance_template_path,
+      File.join(File.expand_path('../../templates', __FILE__), 'maintenance.html.erb')
+    set_if_empty :maintenance_dirname, -> { "#{shared_path}/public/system" }
+    set_if_empty :maintenance_basename, 'maintenance'
   end
 end
