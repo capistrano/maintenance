@@ -5,8 +5,8 @@
 Add this line to your application's Gemfile:
 
 ``` ruby
-gem 'capistrano', '~> 3.0'
-gem 'capistrano-maintenance', '~> 1.0', require: false
+gem 'capistrano', '~> 3.11'
+gem 'capistrano-maintenance', '~> 1.2', require: false
 ```
 
 And then execute:

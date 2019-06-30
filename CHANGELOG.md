@@ -4,9 +4,15 @@ Reverse chronological order:
 
 ## master
 
-https://github.com/capistrano/capistrano-maintenance/compare/v1.2.0...HEAD
+https://github.com/capistrano/capistrano-maintenance/compare/v1.2.1...HEAD
 
 * Your contribution here!
+
+## `1.2.1` (2019-06-30)
+
+https://github.com/capistrano/capistrano-maintenance/compare/v1.2.0...v1.2.1
+
+* [#44](https://github.com/capistrano/maintenance/pull/44): Use the more standard `.html.erb` file extension in the README - [@phoet](https://github.com/phoet)
 
 ## `1.2.0` (2017-03-10)
 
