@@ -11,6 +11,7 @@ Gem::Specification.new do |spec|
   spec.description   = %q{Maintenance Support for Capistrano 3}
   spec.summary       = %q{Enable and disabled tasks to show when your project is on maintenance}
   spec.homepage      = "https://github.com/capistrano/capistrano-maintenance"
+  spec.metadata = { "rubygems_mfa_required" => "true" }
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
