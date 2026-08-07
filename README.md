@@ -52,6 +52,8 @@ location @503 {
 And here is an example config for **Apache**. This will also need to be modified.
 
 ``` apache
+# Enable rewriting
+RewriteEngine On
 # Create an alias to the maintenance page used as error document.
 Alias "/error" "/var/www/domain.com/shared/public/system/"
 ErrorDocument 503 /error/maintenance.html
